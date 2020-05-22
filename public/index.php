@@ -17,6 +17,11 @@ use Phalcon\Url;
  */
 use Phalcon\Mvc\Application;
 
+/**
+ * https://docs.phalcon.io/4.0/en/tutorial-basic#setting-a-database-connection
+ */
+use Phalcon\Db\Adapter\Pdo\Mysql;
+
 
 define('BASE_PATH', dirname(__DIR__));
 define('APP_PATH', BASE_PATH . '/app');
@@ -54,6 +59,20 @@ $container->set(
         $url->setBaseUri('/');
 
         return $url;
+    }
+);
+
+$container->set(
+    'db',
+    function () {
+        return new Mysql(
+            [
+                'host'     => '127.0.0.1',
+                'username' => 'root',
+                'password' => '',
+                'dbname'   => 'phalcon_tut_basic',
+            ]
+        );
     }
 );
 
